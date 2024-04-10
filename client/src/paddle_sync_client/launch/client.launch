@@ -1,0 +1,4 @@
+<launch>
+  <node name="sensor" pkg="rosserial_python" type="serial_node.py" args="tcp" output="screen"/>
+  <node name="client" pkg="paddle_sync_client" type="pose_node" output="screen"/>
+</launch>

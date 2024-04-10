@@ -40,10 +40,17 @@ void setup()
   nh.advertise(imu_pub);
 
   Wire.begin();
-  sensor.setAccelSensitivity(0);  //  2g
-  sensor.setGyroSensitivity(0);   //  250 degrees/s
-  sensor.calibrate(1000);
+  sensor.setAccelSensitivity(3);  //  2g
+  sensor.setGyroSensitivity(3);   //  250 degrees/s
+  //sensor.calibrate(1000);
   sensor.setThrottle();
+
+  sensor.axe = 0;
+  sensor.aye = 0;
+  sensor.aze = 0;
+  sensor.gxe = 0;
+  sensor.gye = 0;
+  sensor.gze = 0;
 
   imu.header.frame_id = "world";
 }

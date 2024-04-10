@@ -1,0 +1,4 @@
+client/build
+client/.catkin_tools
+client/devel
+client/logs

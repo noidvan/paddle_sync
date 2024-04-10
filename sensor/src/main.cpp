@@ -1,7 +1,6 @@
 #define ROSSERIAL_ARDUINO_TCP
+// #define R4WIFI
 
-#include <Arduino.h>
-#include <WiFi.h>
 #include <Wire.h>
 #include <ros.h>
 #include <sensor_msgs/Imu.h>
@@ -33,7 +32,7 @@ void setupWiFi()
 
 void setup()
 {
-  Serial.begin(115200);
+  Serial.begin(9600);
   setupWiFi();
 
   nh.getHardware()->setConnection(server, serverPort);
@@ -43,14 +42,8 @@ void setup()
   Wire.begin();
   sensor.setAccelSensitivity(0);  //  2g
   sensor.setGyroSensitivity(0);   //  250 degrees/s
+  sensor.calibrate(1000);
   sensor.setThrottle();
-
-  sensor.axe = 6.176758324727416e-05;
-  sensor.aye = -1.8798829842125997e-05;
-  sensor.aze = -0.000981201184913516;
-  sensor.gxe = 0.0018702291417866945;
-  sensor.gye = 0.0012900764122605324;
-  sensor.gze = 0.0011374045861884952;
 
   imu.header.frame_id = "world";
 }
@@ -60,14 +53,14 @@ void loop()
   sensor.read();
   imu.header.stamp = nh.now();
 
-  imu.linear_acceleration.x = sensor.getAccelX();
-  imu.linear_acceleration.y = sensor.getAccelY();
-  imu.linear_acceleration.z = sensor.getAccelZ();
-  imu.angular_velocity.x = sensor.getAngleX();
-  imu.angular_velocity.y = sensor.getAngleY();
-  imu.angular_velocity.z = sensor.getAngleZ();
+  imu.linear_acceleration.x = - sensor.getAccelY() * 10;
+  imu.linear_acceleration.y = sensor.getAccelX() * 10;
+  imu.linear_acceleration.z = - sensor.getAccelZ() * 10;
+  imu.angular_velocity.x = - sensor.getGyroY() * M_PI / 180;
+  imu.angular_velocity.y = sensor.getGyroX() * M_PI / 180;
+  imu.angular_velocity.z = sensor.getGyroZ() * M_PI / 180;
 
   imu_pub.publish(&imu);
   nh.spinOnce();
-  delay(20);
+  delay(100);
 }

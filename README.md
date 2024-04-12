@@ -1,7 +1,6 @@
 # Paddle Sync
 
-## Launch Paddle Sensor
+## Launch Paddle Sensor & Client
 ```bash
-roscore
-rosrun rosserial_python serial_node.py tcp
+roslaunch paddle_sync_client client.launch
 ```

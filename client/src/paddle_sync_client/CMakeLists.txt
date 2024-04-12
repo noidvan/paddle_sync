@@ -125,6 +125,7 @@ include_directories(
 #   src/${PROJECT_NAME}/paddle_sync_client.cpp
 # )
 cs_add_library(pose src/pose.cpp)
+cs_add_library(stroke src/stroke_rate.cpp)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -136,6 +137,7 @@ cs_add_library(pose src/pose.cpp)
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/paddle_sync_client_node.cpp)
 cs_add_executable(pose_node src/node.cpp)
+cs_add_executable(stroke_node src/stroke_rate_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -152,6 +154,7 @@ cs_add_executable(pose_node src/node.cpp)
 #   ${catkin_LIBRARIES}
 # )
 target_link_libraries(pose_node pose)
+target_link_libraries(stroke_node stroke)
 
 #############
 ## Install ##

@@ -40,8 +40,8 @@ void setup()
   nh.advertise(imu_pub);
 
   Wire.begin();
-  sensor.setAccelSensitivity(3);  //  2g
-  sensor.setGyroSensitivity(3);   //  250 degrees/s
+  sensor.setAccelSensitivity(0);  //  2g
+  sensor.setGyroSensitivity(0);   //  250 degrees/s
   //sensor.calibrate(1000);
   sensor.setThrottle();
 

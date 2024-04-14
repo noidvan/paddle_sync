@@ -2,5 +2,5 @@
 
 ## Launch Paddle Sensor & Client
 ```bash
-roslaunch paddle_sync_client client.launch
+roslaunch paddle_sync_client stroke_client.launch
 ```

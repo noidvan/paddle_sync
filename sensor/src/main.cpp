@@ -7,10 +7,10 @@
 #include <GY521.h>
 
 
-const char* ssid     = "4809-2.4G";
-const char* password = "20030327";
+const char* ssid     = "GL-SFT1200-6e0";
+const char* password = "goodlife";
 // Set the rosserial socket server IP address
-IPAddress server(10,0,0,143);
+IPAddress server(192,168,8,151);
 // Set the rosserial socket server port
 const uint16_t serverPort = 11411;
 
@@ -40,6 +40,13 @@ void setup()
   nh.advertise(imu_pub);
 
   Wire.begin();
+  delay(100);
+  while (sensor.wakeup() == false)
+  {
+    Serial.print(millis());
+    Serial.println("\tCould not connect to GY521: please check the GY521 address (0x68/0x69)");
+    delay(1000);
+  }
   sensor.setAccelSensitivity(0);  //  2g
   sensor.setGyroSensitivity(0);   //  250 degrees/s
   //sensor.calibrate(1000);

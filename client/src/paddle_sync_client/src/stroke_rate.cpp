@@ -8,8 +8,8 @@ StrokeRateNode::StrokeRateNode(const ros::NodeHandle& nh, const ros::NodeHandle&
 }
 
 void StrokeRateNode::ImuCallback(const sensor_msgs::Imu::ConstPtr& imu) {
-    cur_accel = imu->linear_acceleration.z;
-    if (cur_accel >= 2.0 && (imu->header.stamp.toSec() - prev_time) >= 0.5) {
+    cur_accel = imu->linear_acceleration.x;
+    if (cur_accel <= -5.0 && (imu->header.stamp.toSec() - prev_time) >= 0.5) {
         dt = imu->header.stamp.toSec() - prev_time;
         prev_time = imu->header.stamp.toSec();
 
@@ -24,7 +24,7 @@ void StrokeRateNode::ImuCallback(const sensor_msgs::Imu::ConstPtr& imu) {
         
         stroke.data = cur_stroke_rate;
         stroke_rate_pub.publish(stroke);
-        ROS_INFO("Stroke detected at %f", prev_time);
+        // ROS_INFO("Stroke detected at %f", prev_time);
         ROS_INFO("Current Stroke rate in [rpm]: %d", cur_stroke_rate);
     } else {
         stroke_rate_pub.publish(stroke);

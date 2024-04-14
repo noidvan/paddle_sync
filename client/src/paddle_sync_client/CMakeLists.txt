@@ -212,4 +212,7 @@ target_link_libraries(stroke_node stroke)
 # catkin_add_nosetests(test)
 
 cs_install()
+
+cs_install_scripts(scripts/audio_feedback.py)
+
 cs_export()
